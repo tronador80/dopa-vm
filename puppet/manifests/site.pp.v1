@@ -1,0 +1,51 @@
+include stdlib
+include cdh4pseudo
+
+
+Exec {
+	path      => ['/bin', '/usr/bin', '/usr/sbin/', '/usr/local/bin'],
+	logoutput => on_failure,
+}
+
+Package {
+	require => Exec['update-package-index'],
+}
+
+File {
+	mode  => '0644',
+	owner => 'root',
+	group => 'root',
+}
+
+if ( $::virtualbox_version ) {
+	notice("Detected VirtualBox version ${::virtualbox_version}")
+} else {
+	warning('Could not determine VirtualBox version.')
+}
+
+exec { 'update-package-index':
+	# run 'apt-get update', but no more than once every 24h
+	command => 'apt-get update',
+	unless  => 'bash -c \'(( $(date +%s) - $(stat -c %Y /var/lib/apt/periodic/update-success-stamp) < 86400 ))\''
+}
+
+group { 'puppet':
+	ensure => present,
+}
+
+class { 'git': }
+class { 'misc': }
+
+file { '/home/vagrant/restart_hbase_master.sh':
+	ensure => present,
+	mode   => '0755',
+	source => 'puppet:///modules/misc/restart_hbase_master.sh',
+}
+
+exec { "restart_habse_master":
+	command => "/home/vagrant/restart_hbase_master.sh",
+	path    => "/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/",
+	user => root,
+	require => [File['/home/vagrant/restart_hbase_master.sh'], Class['cdh4pseudo::hbase']]
+}
+
