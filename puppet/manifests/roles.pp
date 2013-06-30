@@ -22,7 +22,7 @@ class role::stratosphere {
 	$dir = '/dopa-vm/stratosphere'
 	class { 'java':}
 	
-	@git::clone { 'physikerwelt/ozone':
+	@git::clone { 'TU-Berlin/ozone':
 	directory => $dir,
 	}
 
