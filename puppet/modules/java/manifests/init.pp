@@ -1,4 +1,4 @@
-class java( $version = '7u25-0~webupd8~0', $dbname = undef ) {
+class java( $version = '', $dbname = undef ) {
 
 	exec{ 'add-ppa-repo':
 	command => 'add-apt-repository ppa:webupd8team/java -y',
@@ -19,7 +19,7 @@ class java( $version = '7u25-0~webupd8~0', $dbname = undef ) {
   }
  
   package { 'oracle-java7-installer':
-    ensure => "${version}",
+  #  ensure => "${version}",
     require => [Exec['add-ppa-repo'], Exec['set-licence-selected'], Exec['set-licence-seen']],
   }
 
