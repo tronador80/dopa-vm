@@ -19,11 +19,16 @@ class role::generic {
 # Provisions a Stratosphere instance powered by Oracle Java.
 class role::stratosphere {
 	include role::generic
-	$dir = '/dopa-vm/stratosphere'
+	$ozoneDir = '/dopa-vm/stratosphere'
+	$meteorDir = '/dopa-vm/meteor'
 	class { 'java':}
 	
 	@git::clone { 'TU-Berlin/ozone':
-	directory => $dir,
+	directory => $ozoneDir,
+	}
+
+	@git::clone { 'TU-Berlin/ozone-meteor':
+	directory => $meteorDir,
 	}
 
 }
