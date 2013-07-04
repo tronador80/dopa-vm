@@ -21,7 +21,7 @@ class role::stratosphere {
 	include role::generic
 	$ozoneDir = '/dopa-vm/stratosphere'
 	$meteorDir = '/dopa-vm/meteor'
-	class { 'java':}
+	class { 'oracle_java':}
 	
 	@git::clone { 'TU-Berlin/ozone':
 	directory => $ozoneDir,
