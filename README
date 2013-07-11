@@ -19,6 +19,7 @@ You'll need to install recent versions of Vagrant and VirtualBox.
 
 Next, you'll need a copy of the vm that you can downlod from this git repository.
 
+
 ## Installation
 
 If you download the content of this repository and extract it to a
@@ -28,11 +29,13 @@ extracted (or git-cloned) files. From there, run `vagrant up` to provision and
 boot the virtual machine.
 
 You'll now have to wait a bit, as Vagrant needs to retrieve the base image from
-Canonical, retrieve some additional packages, and install and configure each of
-them in turn.
+Canonical, retrieve some additional packages, and installs and configures each of
+them.
 
 If it all worked, you should be able to browse to http://localhost:8080/ and
 see the main page of your DOPA test instance.
+
+You can close the vagrant session by the command 'vagrant halt'.
 
 
 ## Usage
@@ -40,3 +43,13 @@ see the main page of your DOPA test instance.
 To access a command shell on your virtual environment, run `vagrant ssh` from
 the root the directory you downlaoded the virtual machine to.
 
+
+## Bug Reporting
+
+To track bugs in the project dopa-vm, you can use the bugtracking tool Bugzilla. 
+
+* Bugzilla: http://dopa.dima.tu-berlin.de/bugzilla3/
+
+Either you can use the webfrontend and manually manage bugs or either commit 
+your changes via Git. To use the webfrontend, you need to create a user account 
+and log in.
