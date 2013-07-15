@@ -1,6 +1,6 @@
 class oraclejava(
   $version   = "$oraclejava::params::version",
-  $default   = "$oraclejava::params::default",
+  $isdefault   = "$oraclejava::params::isdefault",
   $javahome  = "/usr/lib/jvm/java-${oraclejava::params::version}",
 ) inherits oraclejava::params {
   exec { 'apt-get-update':
@@ -26,7 +26,7 @@ class oraclejava(
      command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections';
   }
 
-  if $default {
+  if $isdefault {
     $package  = "oracle-java${version}-set-default"
   }else{
     $package = "oracle-java${version}-installer"

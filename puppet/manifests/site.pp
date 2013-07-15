@@ -21,7 +21,7 @@ import 'base.pp'
 import 'roles.pp'
 
 node 'dopa-vm' { #relates to config.vm.hostname
-	include role::stratosphere
+	include role::strat-bin
 	# include role::dopa
 	# include role::cdh4pseudo
 }

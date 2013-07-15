@@ -12,19 +12,20 @@
 # Configures common tools and shell enhancements.
 class role::generic {
 	class { 'misc': }
-	class { 'git': }
+	class { 'oraclejava':
+		version => "7",
+		isdefault => true,
+	}
 }
+
 
 # == Class: role::stratosphere
 # Provisions a Stratosphere instance powered by Oracle Java.
-class role::stratosphere {
+class role::strat-src {
 	include role::generic
+	class { 'git': }
 	$ozoneDir = '/dopa-vm/stratosphere'
 	$meteorDir = '/dopa-vm/meteor'
-	class { 'oraclejava':
-		version => "7",
-#		default => true,
-	}
 
 	@git::clone { 'TU-Berlin/ozone':
 	directory => $ozoneDir,
@@ -35,7 +36,33 @@ class role::stratosphere {
 	}
 
 }
+# == Class: role::stratosphere
+# Provisions a Stratosphere instance powered by Oracle Java.
+class role::strat-bin {
+	include role::generic
+	exec { 'get-binary':
+        command => "/usr/bin/wget -r -nH --cut-dirs=4  --reject \"index.html*\" --no-parent http://dopa.dima.tu-berlin.de/bin/stratosphere-dist/target/stratosphere-dist-0.3-bin/stratosphere-0.3/ -P /dopa-vm/bin; chmod u+x /dopa-vm/bin/stratosphere-0.3/bin/*",
+		creates => "/dopa-vm/bin"
+    }
 
+    file { '/dopa-vm/bin/stratosphere-0.3/log':
+        ensure  => directory,
+        owner   => 'vagrant',
+        group   => 'www-data',
+        mode    => '0755',
+        require => Exec['get-binary'],
+    }
+
+    exec { 'start-local':        
+        command => "/dopa-vm/bin/stratosphere-0.3/bin/start-local.sh",
+        require => File['/dopa-vm/bin/stratosphere-0.3/log'],
+    }
+
+    exec { 'start-web':        
+        command => "/dopa-vm/bin/stratosphere-0.3/bin/start-pact-web.sh",
+        require => Exec['start-local'],
+    }
+}
 # == Class: role::cdh4pseudo
 # Provisions a pseudo distributes Cloudera 4 instanstace.
 #class role::cdh4pseudo {
