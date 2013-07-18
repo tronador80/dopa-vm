@@ -40,8 +40,14 @@ Vagrant.configure('2') do |config|
 
     config.vm.network :forwarded_port,
         guest: 8080,
-        host: 8080,
+        host: 8090,
         id: 'http',
+        auto_correct: true
+
+    config.vm.network :forwarded_port,
+        guest: 8081,
+        host: 8081,
+        id: 'http-2',
         auto_correct: true
 
     config.vm.synced_folder '.', '/dopa-vm',

@@ -41,7 +41,7 @@ class role::strat-src {
 class role::strat-bin {
 	include role::generic
 	exec { 'get-binary':
-        command => "/usr/bin/wget -r -nH --cut-dirs=4  --reject \"index.html*\" --no-parent http://dopa.dima.tu-berlin.de/bin/stratosphere-dist/target/stratosphere-dist-0.3-bin/stratosphere-0.3/ -P /dopa-vm/bin; chmod u+x /dopa-vm/bin/stratosphere-0.3/bin/*",
+        command => "/usr/bin/wget -r -nH --cut-dirs=4  --reject \"index.html?*\" --no-parent http://dopa.dima.tu-berlin.de/bin/stratosphere-dist/target/stratosphere-dist-0.3-bin/stratosphere-0.3/ -P /dopa-vm/bin; chmod u+x /dopa-vm/bin/stratosphere-0.3/bin/*",
 		creates => "/dopa-vm/bin"
     }
 
@@ -61,6 +61,16 @@ class role::strat-bin {
     exec { 'start-web':        
         command => "/dopa-vm/bin/stratosphere-0.3/bin/start-pact-web.sh",
         require => Exec['start-local'],
+    }
+
+    exec { 'start-sopremo':        
+        command => "/dopa-vm/bin/stratosphere-0.3/bin/start-sopremo-server.sh",
+        require => Exec['start-local'],
+    }
+
+    exec { 'start-meteor':        
+        command => "/dopa-vm/bin/stratosphere-0.3/bin/meteor-webfrontend.sh start",
+        require => Exec['start-sopremo'],
     }
 }
 # == Class: role::cdh4pseudo
