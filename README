@@ -1,4 +1,4 @@
-## DOPA Virtual Machine
+## DOPA Virtual Machine (Alpha Version)
 
 http://www.dopa-project.eu
 
@@ -22,13 +22,12 @@ Next, you'll need a copy of the vm that you can downlod from this git repository
 
 ## Installation
 
-If you download the content of this repository and extract it to a
-directory of your choice. Once you do that, open up a terminal or a
-command-prompt, and change your working directory to the location of the
-extracted (or git-cloned) files. From there, run `vagrant up` to provision and
-boot the virtual machine.
+Download the content of this repository and extract it to a directory of your choice.
+Once you have done that, open up a terminal or a command-prompt, and change your
+working directory to the location of the extracted (or git-cloned) files.
+From there, run `vagrant up` to provision and boot the virtual machine.
 
-You'll now have to wait a bit, as Vagrant needs to retrieve the base image from
+You'll now have to wait a bit (15-20 min), as Vagrant needs to retrieve the base image from
 Canonical, retrieve some additional packages, and installs and configures each of
 them.
 
@@ -38,10 +37,21 @@ see the main page of your DOPA test instance.
 You can close the vagrant session by the command 'vagrant halt'.
 
 
-## Usage
+## Shell Usage
 
 To access a command shell on your virtual environment, run `vagrant ssh` from
 the root the directory you downlaoded the virtual machine to.
+
+From Windows this might cause problems see:
+http://stackoverflow.com/questions/9885108/ssh-to-vagrant-box-in-windows
+
+
+## Developing the Stratosphere platform
+
+If you want to change the Stratosphere Platform you need to enable
+the developer role in dopa-vm\puppet\manifests\site.pp.
+
+This is not required for developing PACT or Meteor programs.
 
 
 ## Bug Reporting
