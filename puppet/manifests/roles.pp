@@ -43,6 +43,22 @@ class role::stratotester {
     class { 'stratodist': }
 
 }
+# == Class: role::stratodata
+# Provisions a Stratosphere instance powered by Oracle Java.
+class role::stratodata {
+	include role::generic
+    $datadir   = '/dopa-vm/data'
+	$url   = 'http://dopa.dima.tu-berlin.de'
+	$usr = 'data'
+	$password = 'bueDbDXNJGGy9aYq'
+
+    exec { 'get-data':
+        command => "/usr/bin/wget -r -nH --reject \"index.html*\" --http-user=${usr} --http-password=${password} --no-parent ${url}/dopadata/ -P ${datadir}",
+        creates => "${datadir}/dopadata"
+    }
+
+}
+
 # == Class: role::cdh4pseudo
 # Provisions a pseudo distributes Cloudera 4 instanstace.
 #class role::cdh4pseudo {
