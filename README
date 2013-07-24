@@ -31,7 +31,7 @@ You'll now have to wait a bit (15-20 min), as Vagrant needs to retrieve the base
 Canonical, retrieve some additional packages, and installs and configures each of
 them.
 
-If it all worked, you should be able to browse to http://localhost:8080/ and
+If it all worked, you should be able to browse to http://localhost:8090/ and
 see the main page of your DOPA test instance.
 
 You can close the vagrant session by the command 'vagrant halt'.

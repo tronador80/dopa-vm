@@ -39,7 +39,7 @@ Vagrant.configure('2') do |config|
         ip: '10.11.12.13'
 
     config.vm.network :forwarded_port,
-        guest: 8080,
+        guest: 8090,
         host: 8090,
         id: 'http',
         auto_correct: true
