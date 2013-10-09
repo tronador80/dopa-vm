@@ -53,14 +53,14 @@ Vagrant.configure('2') do |config|
     config.vm.synced_folder '.', '/dopa-vm',
         id: 'vagrant-root',
         owner: 'vagrant',
-        group: 'www-data',
-        extra: 'dmode=770,fmode=770'
+        group: 'www-data'
 
 
     config.vm.provider :virtualbox do |vb|
         # See http://www.virtualbox.org/manual/ch08.html for additional options.
         vb.customize ['modifyvm', :id, '--memory', '3072']
         vb.customize ['modifyvm', :id, '--ostype', 'Ubuntu_64']
+        vb.customize ['modifyvm', :id, '--ioapic', 'on']
 
         # To boot the VM in graphical mode, uncomment the following line:
         # vb.gui = true
