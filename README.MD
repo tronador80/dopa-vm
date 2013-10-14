@@ -53,6 +53,34 @@ the developer role in dopa-vm\puppet\manifests\site.pp.
 
 This is not required for developing PACT or Meteor programs.
 
+## Getting started
+
+There are two main entry for new users. If you are a expericenced JAVA developer,
+are familar with the MapReduce concept and you want to model´l your data flow graphs
+by your self you probably want to work on the PACT level.
+Otherwise, it might be easier to start with a simple meteor program.
+
+### PACT
+
+To access the PACT web iterface navigate to
+
+http://localhost:8081/launch.html
+
+You should see a page titled Stratosphere Query Interface.
+Now you can start with the 'hello world' anlagon for MapReduce 'WordCount'.
+The wordcount example is preshipped with your Stratosphere installation. Upload
+
+stratosphere\examples\pact\pact-examples-${Version}-WordCount.jar
+
+from the your local download copy of the DOPA-VM to the web interface.
+
+Check the checkbox in the right frame of the new word count example and spcify e.g.
+
+4 file:///dopa-vm/data/opendata/wikienmath.xml file:///dopa-vm/data/output/wordcount1.csv
+
+as arguments.
+Click 'run job' and click run on the next page again.
+
 
 ## Bug Reporting
 
