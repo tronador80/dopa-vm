@@ -58,6 +58,19 @@ class role::stratodata {
     }
 
 }
+# == Class: role::opendata
+# Provisions a Stratosphere instance powered by Oracle Java.
+class role::opendata {
+	include role::generic
+	$datadir   = '/dopa-vm/data'
+	$url   = 'http://demo.formulasearchengine.com/images/'
+
+    exec { 'get-opendata':
+        command => "/usr/bin/wget ${url}wikienmath.xml -P ${datadir}/opendata",
+        creates => "${datadir}/opendata"
+    }
+
+}
 
 # == Class: role::cdh4pseudo
 # Provisions a pseudo distributes Cloudera 4 instanstace.
