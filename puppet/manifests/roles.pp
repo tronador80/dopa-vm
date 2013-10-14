@@ -26,6 +26,8 @@ class role::stratodev{
 	class { 'git': }
 	$ozoneDir = '/dopa-vm/stratosphere-dev'
 	$meteorDir = '/dopa-vm/meteor-dev'
+    $packagesDir = '/dopa-vm/packages-dev'
+    $schedulerDir = '/dopa-vm/scheduler-dev'
 
 	@git::clone { 'TU-Berlin/ozone':
 	directory => $ozoneDir,
@@ -34,6 +36,14 @@ class role::stratodev{
 	@git::clone { 'TU-Berlin/ozone-meteor':
 	directory => $meteorDir,
 	}
+
+    @git::clone { 'TU-Berlin/dopa-scheduler':
+    directory => $schedulerDir,
+    }
+
+    @git::clone { 'TU-Berlin/dopa-packages':
+    directory => $packagesDir,
+    }
 
 }
 # == Class: role::stratotester
@@ -74,21 +84,21 @@ class role::opendata {
 
 # == Class: role::cdh4pseudo
 # Provisions a pseudo distributes Cloudera 4 instanstace.
-#class role::cdh4pseudo {
-#	include role::generic
-#	include stdlib
-#	include cdh4pseudo
+class role::cdh4pseudo {
+	include role::generic
+	include stdlib
+	include cdh4pseudo
 
-#	file { '/home/vagrant/restart_hbase_master.sh':
-#		ensure => present,
-#		mode   => '0755',
-#		source => 'puppet:///modules/misc/restart_hbase_master.sh',
-#	}
+    file { '/home/vagrant/restart_hbase_master.sh':
+		ensure => present,
+		mode   => '0755',
+		source => 'puppet:///modules/misc/restart_hbase_master.sh',
+	}
 
-#	exec { "restart_habse_master":
-#		command => "/home/vagrant/restart_hbase_master.sh",
-#		path    => "/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/",
-#		user => root,
-#		require => [File['/home/vagrant/restart_hbase_master.sh'], Class['cdh4pseudo::hbase']]
-#	}
-#}
+	exec { "restart_habse_master":
+		command => "/home/vagrant/restart_hbase_master.sh",
+		path    => "/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/",
+		user => root,
+		require => [File['/home/vagrant/restart_hbase_master.sh'], Class['cdh4pseudo::hbase']]
+	}
+}
