@@ -4,4 +4,7 @@ NULL
 stratosphere
 stratosphere-dev
 data
+meteor
 meteor-dev
+scheduler-dev
+packages-dev

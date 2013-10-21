@@ -29,11 +29,11 @@ class role::stratodev{
     $packagesDir = '/dopa-vm/packages-dev'
     $schedulerDir = '/dopa-vm/scheduler-dev'
 
-	@git::clone { 'TU-Berlin/ozone':
+	@git::clone { 'stratosphere/stratosphere':
 	directory => $ozoneDir,
 	}
 
-	@git::clone { 'TU-Berlin/ozone-meteor':
+	@git::clone { 'stratosphere/stratosphere-sopremo':
 	directory => $meteorDir,
 	}
 
@@ -60,7 +60,7 @@ class role::stratodata {
 	$datadir   = '/dopa-vm/data'
 	$url   = 'http://dopa.dima.tu-berlin.de'
 	$usr = 'data'
-	$password = ''
+	$password = '' #enter password here
 
     exec { 'get-data':
         command => "/usr/bin/wget -r -nH --reject \"index.html*\" --http-user=${usr} --http-password=${password} --no-parent ${url}/dopadata/ -P ${datadir}",
@@ -95,10 +95,11 @@ class role::cdh4pseudo {
 		source => 'puppet:///modules/misc/restart_hbase_master.sh',
 	}
 
-	exec { "restart_habse_master":
+	exec { "restart_hbase_master":
 		command => "/home/vagrant/restart_hbase_master.sh",
 		path    => "/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/",
 		user => root,
-		require => [File['/home/vagrant/restart_hbase_master.sh'], Class['cdh4pseudo::hbase']]
+		require => [ File['/home/vagrant/restart_hbase_master.sh'],
+            Class['cdh4pseudo::hbase'] ],
 	}
 }
