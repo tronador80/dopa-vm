@@ -3,7 +3,7 @@ class stratodist(
   $url   = 'http://dopa.dima.tu-berlin.de',
 ) {
     exec { 'get-binary':
-        command => "/usr/bin/wget -r -nH --cut-dirs=5  --reject \"index.html*\" --no-parent ${url}/bin/stratosphere-dist/target/stratosphere-dist-0.3-bin/stratosphere-0.3/ -P ${basedir}; chmod u+x ${basedir}/bin/*",
+        command => "/usr/bin/wget -r -nH --cut-dirs=5  --reject \"index.html*\" --no-parent ${url}/bin/stratosphere-dist/target/stratosphere-dist-0.4-SNAPSHOT-bin/stratosphere-0.4-SNAPSHOT -P ${basedir}; chmod u+x ${basedir}/bin/*",
         creates => "${basedir}/bin"
     }
 

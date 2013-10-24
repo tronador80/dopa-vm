@@ -48,15 +48,14 @@ http://stackoverflow.com/questions/9885108/ssh-to-vagrant-box-in-windows
 
 ## Developing the Stratosphere platform
 
-If you want to change the Stratosphere Platform you need to enable
-the developer role in dopa-vm\puppet\manifests\site.pp.
-
-This is not required for developing PACT or Meteor programs.
+no longer supported by the VM.
+Follow instructions on
+https://github.com/stratosphere/stratosphere
 
 ## Getting started
 
 There are two main entry for new users. If you are a expericenced JAVA developer,
-are familar with the MapReduce concept and you want to model´l your data flow graphs
+are familar with the MapReduce concept and you want to model your data flow graphs
 by your self you probably want to work on the PACT level.
 Otherwise, it might be easier to start with a simple meteor program.
 
