@@ -21,10 +21,10 @@ import 'base.pp'
 import 'roles.pp'
 
 node 'dopa-vm' { #relates to config.vm.hostname
-	include role::stratotester
-	include role::opendata
+    include role::stratotester
+    include role::opendata
     # include role::stratodata
-    include role::stratodev
-	# include role::cdh4pseudo
+    # include role::stratodev
+    # include role::cdh4pseudo
     # include role::vmdev
 }
