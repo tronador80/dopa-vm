@@ -24,8 +24,8 @@ class role::generic {
 class role::stratodev{
 	include role::generic
 	class { 'git': }
-	$ozoneDir = '/dopa-vm/stratosphere-dev'
-	$meteorDir = '/dopa-vm/meteor-dev'
+    $ozoneDir = '/dopa-vm/stratosphere-dev'
+    $meteorDir = '/dopa-vm/meteor-dev'
     $packagesDir = '/dopa-vm/packages-dev'
     $schedulerDir = '/dopa-vm/scheduler-dev'
 

@@ -35,9 +35,9 @@ class stratodist(
         require => Exec['start-local'],
     }
 
-    exec { 'start-meteor':        
-        command => "${basedir}/bin/meteor-webfrontend.sh start",
-        require => Exec['start-sopremo'],
-    }
+    #exec { 'start-meteor':        
+    #    command => "${basedir}/bin/meteor-webfrontend.sh start",
+    #    require => Exec['start-sopremo'],
+    #} #Has been removed for some reason from sopremo
 
 }
