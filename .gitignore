@@ -1,5 +1,6 @@
 .vagrant
 /Vagrantfile-extra
+logs
 NULL
 stratosphere
 stratosphere-dev

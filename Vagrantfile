@@ -1,26 +1,16 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-require 'rbconfig'
+#
+# Vagrantfile for DOPA Virtual Machine
+# ---------------------------------
+# Uses parts of 
+# http://www.mediawiki.org/wiki/Mediawiki-Vagrant
+#
+# Please report bugs github:
+# https://github.com/TU-Berlin/dopa-vm/issues
 
-# Check if we're running on Windows.
-def windows?
-    RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
-end
-
-# Get VirtualBox's version string by capturing the output of 'VBoxManage -v'.
-# Returns empty string if unable to determine version.
-def get_virtualbox_version
-    begin
-        if windows?
-            ver = `"%ProgramFiles%\\Oracle\\VirtualBox\\VBoxManage" -v 2>NULL`
-        else
-            ver = `VBoxManage -v 2>/dev/null`
-        end
-    rescue
-        ver = ''
-    end
-    ver.gsub(/r.*/m, '')
-end
+$DIR = File.expand_path('..', __FILE__); $: << File.join($DIR, 'lib')
+require 'mediawiki-vagrant'
 
 Vagrant.configure('2') do |config|
 
@@ -78,23 +68,36 @@ Vagrant.configure('2') do |config|
         puppet.module_path = 'puppet/modules'
         puppet.manifests_path = 'puppet/manifests'
         puppet.manifest_file = 'site.pp'
-        puppet.options = '--verbose'
+
+        puppet.options = [
+            '--templatedir', '/vagrant/puppet/templates',
+            '--verbose',
+            '--config_version', '/vagrant/puppet/extra/config-version',
+            '--fileserverconfig', '/vagrant/puppet/extra/fileserver.conf',
+            '--logdest', "/vagrant/logs/puppet/puppet.#{commit||'unknown'}.log",
+            '--logdest', 'console',
+        ]
 
         # For more output, uncomment the following line:
-        puppet.options << ' --debug'
+        # puppet.options << ' --debug'
 
         # Windows's Command Prompt has poor support for ANSI escape sequences.
         puppet.options << ' --color=false' if windows?
-
-        puppet.facter = {
-            'virtualbox_version' => get_virtualbox_version
+        puppet.facter = $FACTER = {
+            'forwarded_port'     => 8081,
+            #'shared_apt_cache'   => '/vagrant/apt-cache/',
         }
+        #puppet.facter = {
+        #    'virtualbox_version' => get_virtualbox_version
+        #}
     end
 
 end
 
 begin
-    require_relative 'extra-vagrant-settings.rb'
+    # Load custom Vagrantfile overrides from 'Vagrantfile-extra.rb'
+    # See 'Vagrantfile-extra-example.rb' for an example.
+    require File.join($DIR, 'Vagrantfile-extra')
 rescue LoadError
-    # No local Vagrantfile overrides.
+    # OK. File does not exist.
 end
