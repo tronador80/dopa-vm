@@ -33,7 +33,7 @@ class role::stratodev {
     directory => $ozoneDir,
     }
 
-    @git::clone { 'stratosphere/stratosphere-sopremo':
+    @git::clone { 'TU-Berlin/stratosphere-sopremo':
     directory => $meteorDir,
     }
 

@@ -1,0 +1,8 @@
+#!/bin/bash
+cd meteor-dev
+git submodule init
+git submodule update
+mvn -Dmaven.test.skip=true package
+cd ../stratosphere-dev
+mvn -Dmaven.test.skip=true package
+cp -r stratosphere-dist/target/stratosphere-dist-0.4-SNAPSHOT-bin/stratosphere-0.4-SNAPSHOT/* ../meteor-dev/stratosphere-dist/target/stratosphere-dist-0.4-SNAPSHOT-bin/stratosphere-0.4-SNAPSHOT
