@@ -21,7 +21,7 @@ class role::generic {
 
 # == Class: role::stratosphere
 # Provisions a Stratosphere instance powered by Oracle Java.
-class role::stratodev{
+class role::stratodev {
     include role::generic
     class { 'git': }
     $ozoneDir = '/dopa-vm/stratosphere-dev'

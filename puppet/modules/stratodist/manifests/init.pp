@@ -2,9 +2,10 @@ class stratodist(
   $basedir   = '/dopa-vm/stratosphere',
   $url   = 'http://dopa.dima.tu-berlin.de',
 ) {
-    exec { 'get-binary':
-        command => "/usr/bin/wget -r -nH --cut-dirs=5  --reject \"index.html*\" --no-parent ${url}/bin/stratosphere-dist/target/stratosphere-dist-0.4-SNAPSHOT-bin/stratosphere-0.4-SNAPSHOT -P ${basedir}; chmod u+x ${basedir}/bin/*",
-        creates => "${basedir}/bin"
+	require git
+
+    @git::clone { 'TU-Berlin/dopa-binaries':
+    directory => $basedir,
     }
 
     file { "${basedir}/log":
@@ -12,7 +13,7 @@ class stratodist(
         owner   => 'vagrant',
         group   => 'www-data',
         mode    => '0755',
-        require => Exec['get-binary'],
+        require => Git::Clone['TU-Berlin/dopa-binaries'],
     }
 
     package { 'bc':
