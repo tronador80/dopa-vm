@@ -33,7 +33,7 @@ class role::stratodev {
     directory => $ozoneDir,
     }
 
-    @git::clone { 'stratosphere/stratosphere-sopremo':
+    @git::clone { 'TU-Berlin/stratosphere-sopremo':
     directory => $meteorDir,
     }
 
@@ -45,6 +45,11 @@ class role::stratodev {
     directory => $packagesDir,
     }
 
+    file { '/dopa-vm/compile':
+        ensure => present,
+        mode   => '0755',
+        source => 'puppet:///files/compile',
+    }
 }
 # == Class: role::stratotester
 # Provisions a Stratosphere instance powered by Oracle Java.
