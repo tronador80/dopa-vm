@@ -1,15 +1,17 @@
 #!/bin/bash
+STRATOVER="0.4-alpha.0-SNAPSHOT"
+VERSION="0.4-SNAPSHOT"
+
 cd stratosphere-dev
 mvn -Dmaven.test.skip=true install
 cd ../meteor-dev
-git submodule init
-cd ../meteor-dev/stratosphere-dist/target/stratosphere-dist-0.4-SNAPSHOT-bin/stratosphere-0.4-SNAPSHOT
-git fetch origin
-git checkout origin
-cd ../../../..
 mvn -Dmaven.test.skip=true package
-cp -r ../stratosphere-dev/stratosphere-dist/target/stratosphere-dist-0.4-SNAPSHOT-bin/stratosphere-0.4-SNAPSHOT/* stratosphere-dist/target/stratosphere-dist-0.4-SNAPSHOT-bin/stratosphere-0.4-SNAPSHOT
-cd ../meteor-dev/stratosphere-dist/target/stratosphere-dist-0.4-SNAPSHOT-bin/stratosphere-0.4-SNAPSHOT
+
+cd ..
+cp -r "meteor-dev/stratosphere-dist/target/stratosphere-dist-$VERSION-bin/stratosphere-$VERSION/*" stratosphere/
+cp -r "stratosphere-dev/stratosphere-dist/target/stratosphere-dist-$STRATOVER-bin/stratosphere-$STRATOVER/*" stratosphere/
+
+cd ../stratosphere
 git add -A
 MSG="compiled at $(date)"
 echo "$MSG"
