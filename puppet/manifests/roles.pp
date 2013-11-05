@@ -92,7 +92,7 @@ class role::opendata {
 class role::cdh4pseudo {
     include role::generic
     include stdlib
-    include cdh4pseudo
+    include cdh4pseudo::hbase
 
     file { '/home/vagrant/restart_hbase_master.sh':
         ensure => present,
