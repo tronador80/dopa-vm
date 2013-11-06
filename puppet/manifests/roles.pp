@@ -6,11 +6,12 @@
 # To enable a particular role on your instance, include it in the
 # mediawiki-vagrant node definition in 'site.pp'.
 #
-
+include my::hadoop::master
 
 # == Class: role::generic
 # Configures common tools and shell enhancements.
 class role::generic {
+    include ::apt
     class { 'misc': }
     class { 'oraclejava':
         version => "7",
@@ -108,3 +109,12 @@ class role::cdh4pseudo {
             Class['cdh4pseudo::hbase'] ],
     }
 }
+
+# == Class: role::cdh4pseudo
+# Provisions a pseudo distributes Cloudera 4 instanstace.
+class role::hadoop-master {
+    import 'hadoop.pp'
+    #include ::apt
+    include my::hadoop::master
+}
+
