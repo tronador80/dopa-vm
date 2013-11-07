@@ -45,19 +45,4 @@ class misc {
 		source => 'puppet:///modules/misc/bash_aliases',
 	}
 
-	file { '/home/vagrant/fix_hosts.sh':
-		ensure => present,
-		mode   => '0755',
-		source => 'puppet:///modules/misc/fix_hosts.sh',
-	}
-
-	exec { "fix_hosts":
-		command => "/home/vagrant/fix_hosts.sh",
-		path    => "/usr/local/bin/:/usr/bin/:/bin/",
-		user => root,
-		require => File['/home/vagrant/fix_hosts.sh']
-	}
-
-
-
 }

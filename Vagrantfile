@@ -14,7 +14,7 @@ require 'mediawiki-vagrant'
 
 Vagrant.configure('2') do |config|
 
-    config.vm.hostname = 'dopa-vm'
+    config.vm.hostname = 'dopa-vm.dev'
     config.package.name = 'dopa.box'
 
     # Note: If you rely on Vagrant to retrieve the box, it will not
@@ -79,7 +79,7 @@ Vagrant.configure('2') do |config|
         ]
 
         # For more output, uncomment the following line:
-        # puppet.options << ' --debug'
+         puppet.options << ' --debug'
 
         # Windows's Command Prompt has poor support for ANSI escape sequences.
         puppet.options << ' --color=false' if windows?
