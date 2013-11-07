@@ -12,7 +12,8 @@ include my::hadoop::master
 # Configures common tools and shell enhancements.
 class role::generic {
     include ::apt
-    class { 'misc': }
+    include ::env
+    include ::misc
     class { 'oraclejava':
         version => "7",
         isdefault => true,
@@ -50,6 +51,9 @@ class role::stratodev {
         ensure => present,
         mode   => '0755',
         source => 'puppet:///files/compile',
+    }
+    package { [ 'maven' ]:
+        ensure => present,
     }
 }
 # == Class: role::stratotester

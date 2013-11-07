@@ -21,7 +21,7 @@ import 'base.pp'
 import 'roles.pp'
 import 'manifests.d/*.pp'
 
-node 'dopa-vm.dev' { #relates to config.vm.hostname
+node default { #relates to config.vm.hostname
     include role::stratotester
     include role::opendata
 }
