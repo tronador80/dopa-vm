@@ -6,12 +6,14 @@
 # To enable a particular role on your instance, include it in the
 # mediawiki-vagrant node definition in 'site.pp'.
 #
-
+include my::hadoop::master
 
 # == Class: role::generic
 # Configures common tools and shell enhancements.
 class role::generic {
-    class { 'misc': }
+    include ::apt
+    include ::env
+    include ::misc
     class { 'oraclejava':
         version => "7",
         isdefault => true,
@@ -45,6 +47,14 @@ class role::stratodev {
     directory => $packagesDir,
     }
 
+    file { '/dopa-vm/compile':
+        ensure => present,
+        mode   => '0755',
+        source => 'puppet:///files/compile',
+    }
+    package { [ 'maven' ]:
+        ensure => present,
+    }
 }
 # == Class: role::stratotester
 # Provisions a Stratosphere instance powered by Oracle Java.
@@ -87,7 +97,7 @@ class role::opendata {
 class role::cdh4pseudo {
     include role::generic
     include stdlib
-    include cdh4pseudo
+    include cdh4pseudo::hbase
 
     file { '/home/vagrant/restart_hbase_master.sh':
         ensure => present,
@@ -103,3 +113,12 @@ class role::cdh4pseudo {
             Class['cdh4pseudo::hbase'] ],
     }
 }
+
+# == Class: role::cdh4pseudo
+# Provisions a pseudo distributes Cloudera 4 instanstace.
+class role::hadoop-master {
+    import 'hadoop.pp'
+    #include ::apt
+    include my::hadoop::master
+}
+
