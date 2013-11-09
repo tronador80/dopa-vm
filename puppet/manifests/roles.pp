@@ -6,7 +6,7 @@
 # To enable a particular role on your instance, include it in the
 # mediawiki-vagrant node definition in 'site.pp'.
 #
-include my::hadoop::master
+# include my::hadoop::master
 
 # == Class: role::generic
 # Configures common tools and shell enhancements.

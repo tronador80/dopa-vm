@@ -3,13 +3,13 @@ class oraclejava(
   $isdefault   = "$oraclejava::params::isdefault",
   $javahome  = "/usr/lib/jvm/java-${oraclejava::params::version}",
 ) inherits oraclejava::params {
-  exec { 'apt-get-update':
-    command => '/usr/bin/apt-get update',
-  }
+  #exec { 'apt-get-update':
+  #  command => '/usr/bin/apt-get update',
+  #}
 
   package { 'python-software-properties':
     ensure  => 'present',
-    require => Exec['apt-get-update'], 
+    #require => Exec['apt-get-update'], 
   }
 
   exec { 'add-oracle-repository':
@@ -20,10 +20,12 @@ class oraclejava(
 
   exec { 
    'set-licence-selected':
-     command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections';
+     command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections',
+     unless => '/usr/bin/test -e /usr/bin/debconf-set-selections';
  
    'set-licence-seen':
-     command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections';
+     command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections',
+     unless => '/usr/bin/test -e /usr/bin/debconf-set-selections';
   }
 
   if $isdefault {
