@@ -31,7 +31,7 @@ class role::stratodev {
     $packagesDir = '/dopa-vm/packages-dev'
     $schedulerDir = '/dopa-vm/scheduler-dev'
 
-    @git::clone { 'stratosphere/stratosphere':
+    @git::clone { 'TU-Berlin/stratosphere':
     directory => $ozoneDir,
     }
 
