@@ -11,6 +11,7 @@ class my::hadoop {
 
 class my::hadoop::master inherits my::hadoop {
     include cdh4::hadoop::master
+    include cdh4::hadoop::worker
 }
 
 class my::hadoop::worker inherits my::hadoop {
