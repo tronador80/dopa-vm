@@ -1,5 +1,5 @@
 [gerrit]
-host=gerrit.formulasearchengine.com
+host=review.gerrithub.io
 port=29418
-project=dopa-vm
+project=TU-Berlin/dopa-vm
 defaultbranch=master
