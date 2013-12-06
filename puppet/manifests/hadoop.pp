@@ -7,16 +7,22 @@ class my::hadoop {
         # You can also provide an array of dfs_name_dirs.
         dfs_name_dir       => '/var/lib/hadoop',
     }
-    class {'cdh4::hbase':
-        master_domain       => 'localhost',
-        zookeeper_master    => 'localhost',
-    }
 }
 
 
 class my::hadoop::master inherits my::hadoop {
     include cdh4::hadoop::master
     include cdh4::hadoop::worker
+    #include cdh4::hbase::master
+    #include cdh4::hbase::regionserver
+}
+
+
+class my::hbase {
+    class {'cdh4::hbase':
+        master_domain       => 'localhost',
+        zookeeper_master    => 'localhost',
+    }
     include cdh4::hbase::master
     include cdh4::hbase::regionserver
 }

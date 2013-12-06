@@ -120,5 +120,6 @@ class role::hadoop-master {
     import 'hadoop.pp'
     #include ::apt
     include my::hadoop::master
+    #include my::hbase
 }
 
