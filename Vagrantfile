@@ -35,7 +35,7 @@ Vagrant.configure('2') do |config|
         auto_correct: true
 
     config.vm.network :forwarded_port,
-        guest: 8080,
+        guest: 8081,
         host: 8081,
         id: 'http-2',
         auto_correct: true

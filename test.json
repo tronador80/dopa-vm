@@ -1,0 +1,6 @@
+{
+	"students" : [
+	{"name":"Marcus", "brithDate" : {"year":1984} },
+	{"name":"Someoneelse", "brithDate" : {"year":2000} }
+	]
+}
