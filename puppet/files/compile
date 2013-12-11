@@ -3,13 +3,16 @@ STRATOVER="0.4-alpha.0-SNAPSHOT"
 VERSION="0.4-SNAPSHOT"
 
 cd stratosphere-dev
+git checkout IMRproduction
 mvn -Dmaven.test.skip=true install
 cd ../meteor-dev
+git checkout IMRproduction
 mvn -Dmaven.test.skip=true package
 
 cd ..
-cp -r "meteor-dev/stratosphere-dist/target/stratosphere-dist-$VERSION-bin/stratosphere-$VERSION/*" stratosphere/
-cp -r "stratosphere-dev/stratosphere-dist/target/stratosphere-dist-$STRATOVER-bin/stratosphere-$STRATOVER/*" stratosphere/
+cp -r /dopa-vm/meteor-dev/stratosphere-dist/target/stratosphere-dist-0.4-SNAPSHOT-bin/stratosphere-0.4-SNAPSHOT/* stratosphere/
+#cp -r "meteor-dev/stratosphere-dist/target/stratosphere-dist-$VERSION-bin/stratosphere-$VERSION/*" stratosphere/
+#cp -r "stratosphere-dev/stratosphere-dist/target/stratosphere-dist-$STRATOVER-bin/stratosphere-$STRATOVER/*" stratosphere/
 
 cd ../stratosphere
 git add -A
