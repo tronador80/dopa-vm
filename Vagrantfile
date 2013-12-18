@@ -40,6 +40,24 @@ Vagrant.configure('2') do |config|
         id: 'http-2',
         auto_correct: true
 
+    config.vm.network :forwarded_port,
+        guest: 8088,
+        host: 8088,
+        id: 'http-3',
+        auto_correct: true
+
+    config.vm.network :forwarded_port,
+        guest: 50075,
+        host: 50075,
+        id: 'http-4',
+        auto_correct: true
+
+    config.vm.network :forwarded_port,
+        guest: 50070,
+        host: 50070,
+        id: 'http-5',
+        auto_correct: true
+
     config.vm.synced_folder '.', '/dopa-vm',
         id: 'vagrant-root',
         owner: 'vagrant',
@@ -77,7 +95,7 @@ Vagrant.configure('2') do |config|
             '--logdest', "/vagrant/logs/puppet/puppet.#{commit||'unknown'}.log",
             '--logdest', 'console',
         ]
-
+	
         # For more output, uncomment the following line:
          puppet.options << ' --debug'
 
