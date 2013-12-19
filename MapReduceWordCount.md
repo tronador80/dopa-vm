@@ -3,7 +3,7 @@ How to run a simple MapReduce job in the DOPA-VM?
 In complete analogy to 
 http://www.cloudera.com/content/cloudera-content/cloudera-docs/HadoopTutorial/CDH4/Hadoop-Tutorial.html
 the following steps can be performed to test a simple word count job.
-´´´
+```
 sudo su hdfs
 hadoop fs -mkdir /user/vagrant 
 hadoop fs -chown vagrant /user/vagrant
@@ -85,4 +85,4 @@ cd ..
 javac -cp /usr/lib/hadoop/*:/usr/lib/hadoop/client-0.20/* -d wordcount_classes wordcount_classes/WordCount.java
 jar -cvf wordcount.jar -C wordcount_classes/ . 
 hadoop jar wordcount.jar org.myorg.WordCount /user/vagrant/wordcount/input /user/vagrant/wordcount/output
-´´´
+```
