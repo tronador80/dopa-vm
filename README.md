@@ -89,6 +89,17 @@ Check the checkbox in the right frame of the new word count example and spcify e
 as arguments.
 Click *run job* and click run on the next page again.
 
+## HDFS and HBASE
+
+The dopa-vm is equipped with a standalone cloundera (cdh4) installation.
+
+Access 
+* the [HDFS web frontend](http://localhost:50071) - 50070 was used for another service on windows -
+* the [MapReduce JobTracker](http://localhost:8088).
+
+The HBASE support is limit at the moment and needs some manual tuning.
+See this [changeset.](https://gerrit.wikimedia.org/r/#/c/99381/)
+
 
 ## Bug Reporting
 
