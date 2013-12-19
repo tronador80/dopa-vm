@@ -54,7 +54,7 @@ Vagrant.configure('2') do |config|
 
     config.vm.network :forwarded_port,
         guest: 50070,
-        host: 50070,
+        host: 50071,
         id: 'http-5',
         auto_correct: true
 
