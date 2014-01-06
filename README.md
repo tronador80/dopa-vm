@@ -1,6 +1,6 @@
 ## DOPA Virtual Machine (Alpha Version)
 
-http://www.dopa-project.eu
+[http://www.dopa-project.eu](http://www.dopa-project.eu "dopa-project.eu")
 
 This is a portable DOPA testing and development environment. It consists
 of a set of configuration scripts that automate the creation of a virtual
@@ -17,7 +17,7 @@ You'll need to install recent versions of Vagrant and VirtualBox.
  * VirtualBox: https://www.virtualbox.org/wiki/Downloads
  * Vagrant: http://downloads.vagrantup.com/
 
-Next, you'll need a copy of the vm that you can downlod from this git repository.
+Next, you'll need a copy of the vm that you can download from this GIT repository.
 
 
 ## Installation
@@ -40,7 +40,7 @@ You can close the vagrant session by the command 'vagrant halt'.
 ## Shell Usage
 
 To access a command shell on your virtual environment, run `vagrant ssh` from
-the root the directory you downlaoded the virtual machine to.
+the root the directory you downloaded the virtual machine to.
 
 From Windows this might cause problems see:
 http://stackoverflow.com/questions/9885108/ssh-to-vagrant-box-in-windows
@@ -48,45 +48,61 @@ http://stackoverflow.com/questions/9885108/ssh-to-vagrant-box-in-windows
 
 ## Developing the Stratosphere platform
 
-no longer supported by the VM.
-Follow instructions on
-https://github.com/stratosphere/stratosphere
+Follow the installation instructions.
+Run `vagrant list-roles` to see the available roles.
+Use vagrant `enable-role stratodev` to enable the developer role and
+`vagrant provision` to apply the changes.
+
+Vagrant will download the essential source directories from the remote GIT repository.
+
+1. To submit changes to the source, you have to fork the project you want to change.
+* Create a private key inside the VM and add it to your account settings. `ssh-keygen && cat ~/.ssh/id-rsa.pub`
+* Add your repository as remote e.g. `git remote add myrepo git@github.com:USERNAME/stratosphere-sopremo.git`
+* Push the changes to your forked repository. `git push myrepo master:featurename`
+* Create a pull request.
 
 ## Getting started
 
-There are two main entry for new users. If you are a expericenced JAVA developer,
+There are two main entry for new users. If you are a experienced JAVA developer,
 are familar with the MapReduce concept and you want to model your data flow graphs
 by your self you probably want to work on the PACT level.
 Otherwise, it might be easier to start with a simple meteor program.
 
 ### PACT
 
-To access the PACT web iterface navigate to
+To access the PACT web interface navigate to
 
-http://localhost:8081/launch.html
+[http://localhost:8081/launch.html](http://localhost:8081/launch.html)
 
-You should see a page titled Stratosphere Query Interface.
-Now you can start with the 'hello world' anlagon for MapReduce 'WordCount'.
+You should see a page titled *Stratosphere Query Interface*.
+Now you can start with the *hello world* analogon for MapReduce *WordCount*.
 The wordcount example is preshipped with your Stratosphere installation. Upload
 
-stratosphere\examples\pact\pact-examples-${Version}-WordCount.jar
+> stratosphere\examples\pact\pact-examples-${Version}-WordCount.jar
 
 from the your local download copy of the DOPA-VM to the web interface.
 
 Check the checkbox in the right frame of the new word count example and spcify e.g.
 
-4 file:///dopa-vm/data/opendata/wikienmath.xml file:///dopa-vm/data/output/wordcount1.csv
+> 4 file:///dopa-vm/data/opendata/wikienmath.xml file:///dopa-vm/data/output/wordcount1.csv
 
 as arguments.
-Click 'run job' and click run on the next page again.
+Click *run job* and click run on the next page again.
+
+## HDFS and HBASE
+
+The dopa-vm is equipped with a standalone cloundera (cdh4) installation.
+
+Access 
+* the [HDFS web frontend](http://localhost:50071) - 50070 was used for another service on windows -
+* the [MapReduce JobTracker](http://localhost:8088).
+
+The HBASE support is limit at the moment and needs some manual tuning.
+See this [changeset.](https://gerrit.wikimedia.org/r/#/c/99381/)
 
 
 ## Bug Reporting
 
-To track bugs in the project dopa-vm, you can use the bugtracking tool Bugzilla. 
+Bugs can be reported at
 
-* Bugzilla: http://dopa.dima.tu-berlin.de/bugzilla3/
-
-Either you can use the webfrontend and manually manage bugs or either commit 
-your changes via Git. To use the webfrontend, you need to create a user account 
-and log in.
+[https://github.com/TU-Berlin/dopa-vm/issues](https://github.com/TU-Berlin/dopa-vm/issues)

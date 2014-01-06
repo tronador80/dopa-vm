@@ -6,12 +6,14 @@
 # To enable a particular role on your instance, include it in the
 # mediawiki-vagrant node definition in 'site.pp'.
 #
-
+# include my::hadoop::master
 
 # == Class: role::generic
 # Configures common tools and shell enhancements.
 class role::generic {
-    class { 'misc': }
+    include ::apt
+    include ::env
+    include ::misc
     class { 'oraclejava':
         version => "7",
         isdefault => true,
@@ -29,11 +31,11 @@ class role::stratodev {
     $packagesDir = '/dopa-vm/packages-dev'
     $schedulerDir = '/dopa-vm/scheduler-dev'
 
-    @git::clone { 'stratosphere/stratosphere':
+    @git::clone { 'TU-Berlin/stratosphere':
     directory => $ozoneDir,
     }
 
-    @git::clone { 'stratosphere/stratosphere-sopremo':
+    @git::clone { 'TU-Berlin/stratosphere-sopremo':
     directory => $meteorDir,
     }
 
@@ -45,6 +47,14 @@ class role::stratodev {
     directory => $packagesDir,
     }
 
+    file { '/dopa-vm/compile':
+        ensure => present,
+        mode   => '0755',
+        source => 'puppet:///files/compile',
+    }
+    package { [ 'maven' ]:
+        ensure => present,
+    }
 }
 # == Class: role::stratotester
 # Provisions a Stratosphere instance powered by Oracle Java.
@@ -85,21 +95,9 @@ class role::opendata {
 # == Class: role::cdh4pseudo
 # Provisions a pseudo distributes Cloudera 4 instanstace.
 class role::cdh4pseudo {
-    include role::generic
-    include stdlib
-    include cdh4pseudo
-
-    file { '/home/vagrant/restart_hbase_master.sh':
-        ensure => present,
-        mode   => '0755',
-        source => 'puppet:///modules/misc/restart_hbase_master.sh',
-    }
-
-    exec { "restart_hbase_master":
-        command => "/home/vagrant/restart_hbase_master.sh",
-        path    => "/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/",
-        user => root,
-        require => [ File['/home/vagrant/restart_hbase_master.sh'],
-            Class['cdh4pseudo::hbase'] ],
-    }
+    import 'hadoop.pp'
+    #include ::apt
+    include my::hadoop::master
+    include my::hbase
 }
+

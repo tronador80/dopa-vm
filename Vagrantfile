@@ -14,7 +14,7 @@ require 'mediawiki-vagrant'
 
 Vagrant.configure('2') do |config|
 
-    config.vm.hostname = 'dopa-vm'
+    config.vm.hostname = 'dopa-vm.dev'
     config.package.name = 'dopa.box'
 
     # Note: If you rely on Vagrant to retrieve the box, it will not
@@ -35,9 +35,27 @@ Vagrant.configure('2') do |config|
         auto_correct: true
 
     config.vm.network :forwarded_port,
-        guest: 8080,
+        guest: 8081,
         host: 8081,
         id: 'http-2',
+        auto_correct: true
+
+    config.vm.network :forwarded_port,
+        guest: 8088,
+        host: 8088,
+        id: 'http-3',
+        auto_correct: true
+
+    config.vm.network :forwarded_port,
+        guest: 50075,
+        host: 50075,
+        id: 'http-4',
+        auto_correct: true
+
+    config.vm.network :forwarded_port,
+        guest: 50070,
+        host: 50071,
+        id: 'http-5',
         auto_correct: true
 
     config.vm.synced_folder '.', '/dopa-vm',
@@ -77,9 +95,9 @@ Vagrant.configure('2') do |config|
             '--logdest', "/vagrant/logs/puppet/puppet.#{commit||'unknown'}.log",
             '--logdest', 'console',
         ]
-
+	
         # For more output, uncomment the following line:
-        # puppet.options << ' --debug'
+         puppet.options << ' --debug'
 
         # Windows's Command Prompt has poor support for ANSI escape sequences.
         puppet.options << ' --color=false' if windows?
